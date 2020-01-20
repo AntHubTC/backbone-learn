@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/_underscore@1.9.1@underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+    <script>
+        // 在实际开发的时候还是多看文档中的api用法
+        $(function () {
+            /*
+             Backbone 视图几乎约定比他们的代码多 — 他们并不限定你的HTML或CSS， 并可以配合使用任何JavaScript模板库。 一般是组织您的接口转换成逻辑视图， 通过模型的支持， 模型变化时， 每一个都可以独立地进行更新， 而不必重新绘制该页面。我们再也不必钻进 JSON 对象中，查找 DOM 元素，手动更新 HTML 了，通过绑定视图的 render 函数到模型的 "change" 事件 — 模型数据会即时的显示在 UI 中。  
+             */
+            
+            // 开始创建自定义的视图类。 通常我们需要重载 render 函数，声明 events， 以及通过 tagName, className, 或 id 为视图指定根元素。 
+            var DocumentRow = Backbone.View.extend({
+              tagName: "li",
+              className: "document-row",
+              events: {
+                "click .icon":          "open",
+                "click .button.edit":   "openEditDialog",
+                "click .button.delete": "destroy"
+              },
+              initialize: function() {
+                this.listenTo(this.model, "change", this.render);
+              },
+              render: function() {
+
+              }
+            });
+        })
+    </script>
+</head>
+<body>
+    <div id="box">
+        
+    </div>
+</body>
+</html>

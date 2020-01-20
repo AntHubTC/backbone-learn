@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/_underscore@1.9.1@underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+    <script>
+        // 在实际开发的时候还是多看文档中的api用法
+        $(function () {
+            var Books = Backbone.Model.extend()
+            var Library = Backbone.Model.extend({
+                constructor: function () {
+                    this.books = new Books()
+                    Backbone.Model.apply(this, arguments)
+                },
+                parse: function (data, options) {
+                    this.books.reset(data.books)
+                    return data.library
+                }
+            })
+
+            var hacker = new Backbone.Model({
+                html: "<script>alert('xss')<//script>"
+            })
+            console.info(hacker.escape('html'))
+
+            console.info('exists sex attribute:'+hacker.has('sex'))
+            console.info('exists html attribute:'+hacker.has('html'))
+            hacker.unset('html')
+            console.info('exists html attribute:'+hacker.has('html'))
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

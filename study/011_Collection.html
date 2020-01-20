@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/_underscore@1.9.1@underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+    <script>
+        // 在实际开发的时候还是多看文档中的api用法
+        $(function () {
+            var Book = Backbone.Model.extend({
+                defaults: {
+                    name: 'book name'
+                }
+            })
+
+            // 通过扩展 Backbone.Collection 创建一个 Collection 类
+            var Library = Backbone.Collection.extend({
+                model: Book,
+                initialize: function () {
+                    console.info('Library initialize!~')
+                }
+                // constructor: function() {
+                //     Backbone.Collection.constructor.apply(this, arguments)
+                // }
+            })
+
+            var book1 = new Book({
+                name: '小绿书'
+            })
+            var book2 = new Book({
+                name: '小白书'
+            })
+            var book3 = new Book({
+                name: '小黄书'
+            })
+            var library = new Library([
+                {
+                    name: '小蓝书'
+                }, {
+                    name: '小红书'
+                }
+            ])
+            library.add([book1, book2]) // 一个或一个模型数组
+            library.push(book3)
+            console.info(library)
+            console.info(library.length)
+
+            // 也代理了很多Underscore集合的操作方法
+            library.forEach(function(model, index, models) {
+                console.info(model.get('name'))
+            })
+
+            // 集合也可以包含多态模型，通过用构造函数重写这个属性，返回一个模型。
+            // var Library = Backbone.Collection.extend({
+            //   model: function(attrs, options) {
+            //     if (condition) {
+            //       return new PublicDocument(attrs, options);
+            //     } else {
+            //       return new PrivateDocument(attrs, options);
+            //     }
+            //   }
+
+            // });
+        })
+    </script>
+</head>
+<body>
+    <div>查看控制台输出</div>
+</body>
+</html>

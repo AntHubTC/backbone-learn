@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/_underscore@1.9.1@underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+    <script>
+        // 在实际开发的时候还是多看文档中的api用法
+        $(function () {
+            var Chapter = Backbone.Model.extend({
+              validate: function(attrs, options) {
+                if (attrs.start > attrs.end) {
+                    return "can't end before it starts"
+                }
+              }
+            })
+            var one = new Chapter({
+                title : "Chapter One: The Beginning"
+            })
+            // 验证无效会触发invalid事件
+            one.on('invalid', function(model, error) {
+                console.info(model.validationError)
+                alert(model.get('title') + ':   ' + error)
+            })
+
+            $('#saveBtn').click(function() {
+                one.save({
+                    start: 8,
+                    end: 2
+                })
+            })
+
+            // 运行validate来检查Model是否有效
+            if (!one.isValid()) {
+              alert(one.get("title") + " " + one.validationError);
+            }
+        })
+    </script>
+</head>
+<body>
+    <div>
+        <input type="button" id="saveBtn" value="保存">
+    </div>
+</body>
+</html>

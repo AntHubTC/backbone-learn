@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/_underscore@1.9.1@underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+    <script>
+        // 在实际开发的时候还是多看文档中的api用法
+        $(function () {
+            //  继承
+            var Fruits = Backbone.Model.extend({
+                name: '水果', // 水果名称
+                color: '未知', // 水果的颜色
+                initialize: function () {
+                    console.info('Fruits initialize')
+                },
+                say: function () {
+                    console.info(this)
+                    console.info('我是:' + this.name + '  颜色：'+ this.color)
+                }
+            })
+            var Apple = Fruits.extend({
+                name: '苹果',
+                color: 'red',
+                initialize: function () {
+                    console.info('Apple initialize')
+                },
+                getStory: function () {
+                    return '牛顿被我砸过！~'
+                }
+            })
+            var fruits = new Fruits
+            var apple = new Apple
+
+            fruits.say()
+            apple.say()
+            console.info(apple.getStory())
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

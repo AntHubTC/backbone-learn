@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/_underscore@1.9.1@underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+    <script>
+        // 在实际开发的时候还是多看文档中的api用法
+        $(function () {
+            var object = {}
+            // 继承Backbone.Events
+            _.extend(object, Backbone.Events)
+            //  监听定义的事件 on可以同时监听多个事件。
+            object.on('alert', function (msg) {
+                alert('Triggerred ' + msg)
+            })
+
+            // 支持事件映射
+            // book.on({
+            //     "change:title": titleView.update,
+            //     "change:author": authorPane.update,
+            //     "destroy remove": bookView.remove
+            // });
+
+            $('#triggerBtn').click(function () {
+                // 触发对象的条件
+                object.trigger('alert', 'an event')
+            })
+            //    当回调函数被绑定到特殊"all"事件时，任何事件的发生都会触发该回调函数，回调函数的第一个参数会传递该事件的名称。举个例子，将一个对象的所有事件代理到另一对象：
+            object.on('all', function (eventName) {
+                // 先出发的alert再触发的这个 (和on的顺序无关)
+                console.info(eventName)
+            })
+
+
+            // Removes just the `onChange` callback.
+            // object.off("change", onChange);
+
+            // Removes all "change" callbacks.
+            // object.off("change");
+
+            // Removes the `onChange` callback for all events.
+            // object.off(null, onChange);
+
+            // Removes all callbacks for `context` for all events.
+            // object.off(null, null, context);
+
+            // Removes all callbacks on `object`.
+            // object.off();
+
+
+
+        })
+    </script>
+</head>
+<body>
+    <input id='triggerBtn' type="button" value="trigger button">
+</body>
+</html>

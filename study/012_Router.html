@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/_underscore@1.9.1@underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+    <script>
+        // 在实际开发的时候还是多看文档中的api用法
+        $(function () {
+            var WorkSpace = Backbone.Router.extend({
+                routes: {
+                    '': 'index', //
+                    'help':    "help", // #help
+                    'search/:query/p:page': 'index' // #index/kiwis/p7
+                },
+                help: function() {
+                    console.info('enter help page')
+
+                    $("#stages > div.stage").css({
+                        display: 'none'
+                    })
+                    $("#stages > div.help").css({
+                        display: 'block'
+                    })
+                },
+                index: function(query, page) {
+                    console.info('enter index page')
+                    console.info(query, page)
+
+                    $("#stages > div.stage").css({
+                        display: 'none'
+                    })
+                    $("#stages > div.index").css({
+                        display: 'block'
+                    })
+                }
+            })
+            var ws = new WorkSpace
+            Backbone.history.start()
+            // Backbone.history.stop()
+            ws.navigate('', {
+                trigger: true  
+            })
+
+            $('div.toolBar > input[type=button]').click(function() {
+                var $this = $(this)
+                var url = $this.data('url')
+                ws.navigate(url, {  
+                    trigger: true  // 触发
+                })
+            })
+        })
+    </script>
+    <style type="text/css">
+        .stage {
+            width: 200px;
+            height: 400px;
+            padding: 10px 10px;
+            background-color: yellow;
+            border: 1px solid black;
+            display: none;
+        }
+        .toolBar {
+            margin: 2px 1px
+        }
+    </style>
+</head>
+<body>
+    <div>路由</div>
+    <div class="toolBar">
+        <input type="button" data-url="" value="首页">
+        <input type="button" data-url="/help" value="帮助">
+    </div>
+    <div id="stages">
+        <div class="stage index">
+            这是首页
+        </div>
+        <div class="stage help">
+            这是帮助页
+        </div>
+    </div>
+</body>
+</html>

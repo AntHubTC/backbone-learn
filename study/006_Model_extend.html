@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/_underscore@1.9.1@underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+    <script>
+        // 在实际开发的时候还是多看文档中的api用法
+        $(function () {
+            var Fruits = Backbone.Model.extend({ // 水果
+                initialize: function () {
+                    console.info('Fruits initialize')
+                },
+                say: function () {
+                    var name = this.get('name')
+                    console.info(name + '张开了嘴巴，')
+                }
+            })
+            var Apple = Fruits.extend({ // 苹果
+                initialize: function () {
+                    console.info('Apple initialize')
+                },
+                // 重写父类方法
+                say: function () {
+                    // 调用父类的方法
+                    Fruits.prototype.say.apply(this, arguments)
+
+                    var name = this.get('name')
+                    console.info(name + '说话了')
+                },
+                getStory: function () {
+                    return '牛顿被我砸过！~'
+                }
+            })
+            var fruits = new Fruits({
+                name: '水果'
+            })
+            var apple = new Apple({
+                name: '苹果'
+            })
+
+            // fruits.say()
+            apple.say()
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

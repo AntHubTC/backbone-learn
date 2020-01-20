@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../node_modules/_underscore@1.9.1@underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+    <title>Hello world!</title>
+    <script>
+        $(function () {
+            var AppView = Backbone.View.extend({
+                el: '#container', // 选择器
+                initialize: function () {
+                    // 初始化的时候就渲染
+                    this.render()
+                },
+                render: function () {
+                    this.$el.html("Hello World!")
+                }
+            })
+            var appView = new AppView;
+        })
+    </script>
+</head>
+<body>
+    <div id="container">Loading...</div>
+</body>
+</html>
